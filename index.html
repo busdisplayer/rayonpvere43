@@ -99,6 +99,13 @@
       radius:20000
     }).addTo(map);
     }
+
+            for (const conso of chaufferies) {
+        console.log(conso);
+        const coords = conso[1].split(',').map(s => parseFloat(s.trim()));
+      var pointConso = L.marker(coords).addTo(map);
+      pointConso.bindPopup(conso[0]);
+    }
     }
     mainThread();
   </script>
