@@ -60,7 +60,7 @@
         const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/1GqJfpWwr_O8ul2nqycaBW6vH8Z3XylfLTq3EGFPXf_s/values/Consommation!A:B?key=AIzaSyCZ_z9l9uecGSrVRdOD3ISnkte4ze${missingPartB}`);
         const result = await response.json();
         console.log(response);
-        if (response.status == "OK") {
+        if (response.status == 200) {
           localStorage.setItem('missingPartB', missingPartB);
         }
         chaufferies = result.values;
