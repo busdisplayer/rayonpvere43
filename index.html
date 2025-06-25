@@ -23,7 +23,7 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialisation de la carte
-    const map = L.map('map').setView([45.15527152851981, 4.135155468240912], 25);
+    const map = L.map('map').setView([45.15527152851981, 4.135155468240912], 5);
 
     // Fond de carte OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -105,8 +105,8 @@
         const coords = conso[1].split(',').map(s => parseFloat(s.trim()));
         let datas;
         for (const prod of plateformes) {
-          var pointA = L.latLng(conso[1]);
-          var pointB = L.latLng(prod[1]);
+          var pointA = L.latLng(coords);
+          var pointB = L.latLng(prod[1].split(',').map(s => parseFloat(s.trim())));
           var distance = pointA.distanceTo(pointB)/1000;
           datas += `<p>${distance} km</p>`
         }
