@@ -103,7 +103,7 @@
             for (const conso of chaufferies) {
         console.log(conso);
         const coords = conso[1].split(',').map(s => parseFloat(s.trim()));
-        let datas;
+        let datas = "";
               datas += `<h1>${conso[0]}</h1>` 
         for (const prod of plateformes) {
           var pointA = L.latLng(coords);
