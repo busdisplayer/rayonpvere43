@@ -108,7 +108,7 @@
           var pointA = L.latLng(conso[1]);
           var pointB = L.latLng(prod[1]);
           var distance = pointA.distanceTo(pointB)/1000;
-          datas += `<p>${distance}m</p>`
+          datas += `<p>${distance} km</p>`
         }
       var pointConso = L.marker(coords).addTo(map);
       pointConso.bindPopup(`<h1>${conso[0]}</h1>${datas}`);
