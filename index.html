@@ -104,11 +104,11 @@
         console.log(conso);
         const coords = conso[1].split(',').map(s => parseFloat(s.trim()));
         let datas;
+              datas += `<h1>${conso[0]}</h1>` 
         for (const prod of plateformes) {
           var pointA = L.latLng(coords);
           var pointB = L.latLng(prod[1].split(',').map(s => parseFloat(s.trim())));
           var distance = pointA.distanceTo(pointB)/1000;
-          datas += `<h1>${conso[0]}</h1>` 
           datas += `<p>${prod[0]} : ${distance.toFixed(2)} km</p>`
         }
       var pointConso = L.marker(coords).addTo(map);
