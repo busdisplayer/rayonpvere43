@@ -30,9 +30,50 @@
       attribution: '© OpenStreetMap contributors',
       maxZoom: 19
     }).addTo(map);
-
+// Test
     var point = L.marker([45.15527152851981, 4.135155468240912]).addTo(map);
     point.bindPopup("ERE43 / Meteor").openPopup();
+
+    var cercle = L.circle([45.15527152851981, 4.135155468240912], {
+      color:'red',
+      fillColor:'#f03',
+      fillOpacity:0.2,
+      radius:1000
+    }).addTo(map);
+  // Test
+    let missingPartB;
+    function mainThread() {
+      missingPartB = prompt("Entrez le mot de passe, s'il vous plaît...");
+      fetchChaufferies();
+    }
+    
+    let chaufferies = [];
+    let plateformes = [];
+
+    async function fetchChaufferies() {
+      try {
+        const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/1GqJfpWwr_O8ul2nqycaBW6vH8Z3XylfLTq3EGFPXf_s/values/Chaufferies!A:C?key=AIzaSyCZ_z9l9uecGSrVRdOD3ISnkte4ze${missingPartB}`);
+        const result = await response.json();
+        chaufferies = result.values;
+        await fetchPlateformes();
+      } catch (error) {
+        console.error("Erreur de récupération des chaufferies:", error);
+      }
+    }
+
+    async function fetchPlateformes() {
+      try {
+        const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/1GqJfpWwr_O8ul2nqycaBW6vH8Z3XylfLTq3EGFPXf_s/values/Plateformes!A:C?key=AIzaSyCZ_z9l9uecGSrVRdOD3ISnkte4ze${missingPartB}`);
+        const result = await response.json();
+        plateformes = result.values;
+        await plotPoints();
+      } catch (error) {
+        console.error("Erreur de récupération des plateformes:", error);
+      }
+    }
+    async function plotPoints () {
+      
+    }
   </script>
 </body>
 </html>
