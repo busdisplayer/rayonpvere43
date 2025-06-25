@@ -108,6 +108,33 @@
     }
     }
     mainThread();
+    let lastClickedPoint = null;
+
+map.on('click', function (e) {
+  const clickedPoint = e.latlng; // L.latLng
+
+  // Ajouter un marqueur
+  L.marker(clickedPoint).addTo(map);
+
+  if (lastClickedPoint) {
+    // Calcul de la distance (en mètres)
+    const distance = lastClickedPoint.distanceTo(clickedPoint);
+
+    // Ligne entre les deux points
+    L.polyline([lastClickedPoint, clickedPoint], { color: 'blue' }).addTo(map);
+
+    // Popup avec distance
+    L.popup()
+      .setLatLng(clickedPoint)
+      .setContent(`Distance : ${(distance / 1000).toFixed(2)} km`)
+      .openOn(map);
+
+    // Réinitialiser pour le prochain couple
+    lastClickedPoint = null;
+  } else {
+    lastClickedPoint = clickedPoint;
+  }
+});
   </script>
 </body>
 </html>
