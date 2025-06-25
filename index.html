@@ -30,6 +30,9 @@
       attribution: '© OpenStreetMap contributors',
       maxZoom: 19
     }).addTo(map);
+
+    var point = L.marker([45.15527152851981, 4.135155468240912]).addTo(map);
+    point.bindPopup("ERE43 / Meteor").openPopup();
   </script>
 </body>
 </html>
