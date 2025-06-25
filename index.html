@@ -79,15 +79,16 @@
     async function plotPoints () {
       for (const prod of plateformes) {
         console.log(prod);
-      var pointProd = L.marker([prod[1]]).addTo(map);
+        const coords = prod[1].split(',').map(s => parseFloat(s.trim()));
+      var pointProd = L.marker(coords).addTo(map);
       pointProd.bindPopup(prod[0]);
-      var cercleA = L.circle([prod[1]], {
+      var cercleA = L.circle(coords, {
       color:'red',
       fillColor:'#f03',
       fillOpacity:0.2,
       radius:10000
     }).addTo(map);
-      var cercleB = L.circle([prod[1]], {
+      var cercleB = L.circle(coords, {
       color:'red',
       fillColor:'#f03',
       fillOpacity:0.2,
