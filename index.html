@@ -54,6 +54,7 @@
     
     let chaufferies = [];
     let plateformes = [];
+    const cercleData = []; // {nom, centre, cercle A, cercleB}
 
     async function fetchChaufferies() {
       try {
@@ -98,6 +99,12 @@
       fillOpacity:0.2,
       radius:10000
     }).addTo(map);
+        cercleData.push({
+          nom: prod[0],
+          centre:coords,
+          cercleA: cercleA,
+          cercleB: cercleB
+        });
     }
 
             for (const conso of chaufferies) {
