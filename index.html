@@ -120,11 +120,17 @@
       }
     }
     async function plotPoints () {
+      const usine = L.icon({
+        iconUrl:'https://cdn.pixabay.com/photo/2013/07/12/14/09/industry-147863_1280.png',
+        iconSize:[32,32],
+        iconAnchor:[16,32],
+        popupAnchor:[0,-32]
+      });
       for (const prod of plateformes) {
         console.log(prod);
       const coords = prod[1].split(',').map(s => parseFloat(s.trim()));
       var pointProd = L.marker(coords, {
-        
+        icon:usine
       }).addTo(map);
       pointProd.bindPopup(`<h1>${prod[0]}</h1>`);
       var cercleA = L.circle(coords, {
