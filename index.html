@@ -18,7 +18,7 @@
 </head>
 <body>
   <div id="map"></div>
-  <div style="position:absolute; top: 10px; left: 10px; z-index:1000; background:white;padding:10px;">
+ <!-- <div style="position:absolute; top: 10px; left: 10px; z-index:1000; background:white;padding:10px;">
  <label for="decalage">Déplacer les cercles:</label>
     <select id="decalage" onchange="deplacerCercles(this.value)">
       <option value="">Choisir une direction</option>
@@ -27,7 +27,35 @@
     <option value="gauche">Gauche</option>
     <option value="droite">Droite</option>
         </select>
+  </div> -->
+
+  <div id="controller" style="
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+">
+  <select id="cercleSelect" style="margin-bottom: 10px;"></select>
+
+  <div style="display: grid; grid-template-columns: 40px 40px 40px; grid-template-rows: 40px 40px 40px; gap: 5px;">
+    <div></div>
+    <button onclick="moveSelectedCercle('haut')">⬆️</button>
+    <div></div>
+    <button onclick="moveSelectedCercle('gauche')">⬅️</button>
+    <div></div>
+    <button onclick="moveSelectedCercle('droite')">➡️</button>
+    <div></div>
+    <button onclick="moveSelectedCercle('bas')">⬇️</button>
+    <div></div>
   </div>
+</div>
 
   <!-- Script Leaflet -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -135,27 +163,63 @@
     mainThread();
     let lastClickedPoint = null;
 
-    function deplacerCercles(direction) {
-  const decalageMetres = 1000; // 1km
-  const latDiff = direction === "haut" ? 0.009 : direction === "bas" ? -0.009 : 0;
-  const lngDiff = direction === "droite" ? 0.015 : direction === "gauche" ? -0.015 : 0;
+  //  function deplacerCercles(direction) {
+  //const decalageMetres = 1000; // 1km
+  //const latDiff = direction === "haut" ? 0.009 : direction === "bas" ? -0.009 : 0;
+  //const lngDiff = direction === "droite" ? 0.015 : direction === "gauche" ? -0.015 : 0;
 
-  cercleData.forEach(obj => {
-    const [lat, lng] = obj.centre;
-    const newLat = lat + latDiff;
-    const newLng = lng + lngDiff;
+  //cercleData.forEach(obj => {
+   // const [lat, lng] = obj.centre;
+  //  const newLat = lat + latDiff;
+  //  const newLng = lng + lngDiff;
 
-    const dist = map.distance([lat, lng], [newLat, newLng]);
+   // const dist = map.distance([lat, lng], [newLat, newLng]);
 
     // Vérifie que le centre original reste dans le nouveau cercle
-    if (dist < obj.cercleB.getRadius()) {
-      obj.cercleA.setLatLng([newLat, newLng]);
-      obj.cercleB.setLatLng([newLat, newLng]);
-    } else {
-      alert(`Déplacement trop loin pour ${obj.nom}`);
-    }
-  });
+   // if (dist < obj.cercleB.getRadius()) {
+   //   obj.cercleA.setLatLng([newLat, newLng]);
+    //  obj.cercleB.setLatLng([newLat, newLng]);
+    //} else {
+    //  alert(`Déplacement trop loin pour ${obj.nom}`);
+   // }
+ // });
+//}
+    const cercleSelect = document.getElementById("cercleSelect");
+cercleData.forEach(obj => {
+  const opt = document.createElement("option");
+  opt.value = obj.nom;
+  opt.textContent = obj.nom;
+  cercleSelect.appendChild(opt);
+});
+
+    function moveSelectedCercle(direction) {
+  const selectedNom = document.getElementById("cercleSelect").value;
+  const obj = cercleData.find(c => c.nom === selectedNom);
+  if (!obj) return;
+
+  const step = 0.001; // ~100m
+  let [lat, lng] = obj.currentLatLng;
+
+  // Déplacement
+  if (direction === "haut") lat += step;
+  if (direction === "bas") lat -= step;
+  if (direction === "gauche") lng -= step;
+  if (direction === "droite") lng += step;
+
+  const newPos = [lat, lng];
+  const distance = map.distance(obj.centre, newPos); // en mètres
+
+  // Vérifie que le centre initial reste dans le cercle déplacé
+  if (distance <= obj.cercleB.getRadius()) {
+    obj.cercleA.setLatLng(newPos);
+    obj.cercleB.setLatLng(newPos);
+    obj.currentLatLng = newPos;
+  } else {
+    alert("Déplacement interdit : le centre d'origine sortirait du cercle.");
+  }
 }
+
+
   </script>
 </body>
 </html>
