@@ -18,6 +18,16 @@
 </head>
 <body>
   <div id="map"></div>
+  <div style="position:absolute; top: 10px; left: 10px; z-index:1000; background:white;padding:10px;">
+ <label for="decalage">Déplacer les cercles:</label>
+    <select id="decalage" onchange="deplacerCercles(this.value)">
+      <option value="">Choisir une direction</option>
+      <option value="haut">Haut</option>
+    <option value="bas">Bas</option>
+    <option value="gauche">Gauche</option>
+    <option value="droite">Droite</option>
+        </select>
+  </div>
 
   <!-- Script Leaflet -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -124,6 +134,28 @@
     }
     mainThread();
     let lastClickedPoint = null;
+
+    function deplacerCercles(direction) {
+  const decalageMetres = 1000; // 1km
+  const latDiff = direction === "haut" ? 0.009 : direction === "bas" ? -0.009 : 0;
+  const lngDiff = direction === "droite" ? 0.015 : direction === "gauche" ? -0.015 : 0;
+
+  cercleData.forEach(obj => {
+    const [lat, lng] = obj.centre;
+    const newLat = lat + latDiff;
+    const newLng = lng + lngDiff;
+
+    const dist = map.distance([lat, lng], [newLat, newLng]);
+
+    // Vérifie que le centre original reste dans le nouveau cercle
+    if (dist < obj.cercleB.getRadius()) {
+      obj.cercleA.setLatLng([newLat, newLng]);
+      obj.cercleB.setLatLng([newLat, newLng]);
+    } else {
+      alert(`Déplacement trop loin pour ${obj.nom}`);
+    }
+  });
+}
   </script>
 </body>
 </html>
