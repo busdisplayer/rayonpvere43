@@ -155,7 +155,8 @@
           nom: prod[0],
           centre:coords,
           cercleA: cercleA,
-          cercleB: cercleB
+          cercleB: cercleB,
+          currentLatLng:coords
         });
     }
 
@@ -173,6 +174,13 @@
       var pointConso = L.marker(coords, {icon:client}).addTo(map);
       pointConso.bindPopup(datas);
     }
+         const cercleSelect = document.getElementById("cercleSelect");
+cercleData.forEach(obj => {
+  const opt = document.createElement("option");
+  opt.value = obj.nom;
+  opt.textContent = obj.nom;
+  cercleSelect.appendChild(opt);
+});
     }
     mainThread();
     let lastClickedPoint = null;
@@ -198,13 +206,7 @@
    // }
  // });
 //}
-    const cercleSelect = document.getElementById("cercleSelect");
-cercleData.forEach(obj => {
-  const opt = document.createElement("option");
-  opt.value = obj.nom;
-  opt.textContent = obj.nom;
-  cercleSelect.appendChild(opt);
-});
+ 
 
     function moveSelectedCercle(direction) {
   const selectedNom = document.getElementById("cercleSelect").value;
