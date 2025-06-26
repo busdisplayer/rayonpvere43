@@ -61,13 +61,20 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialisation de la carte
-    const map = L.map('map').setView([45.15527152851981, 4.135155468240912], 13);
+    const map = L.map('map').setView([45.15527152851981, 4.135155468240912], 13, [satellite]);
+  const baseMaps = {
+  "OpenStreetMap": osm,
+  "Satellite": satellite
+};
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' });
+const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: '© Esri' });
+    L.control.layers(baseMaps).addTo(map);
 
     // Fond de carte OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 19
-    }).addTo(map);
+  //  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //  attribution: '© OpenStreetMap contributors',
+     // maxZoom: 19
+   // }).addTo(map);
 // Test
     // var point = L.marker([45.15527152851981, 4.135155468240912]).addTo(map);
     // point.bindPopup("ERE43 / Meteor").openPopup();
