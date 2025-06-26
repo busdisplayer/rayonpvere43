@@ -121,7 +121,13 @@
     }
     async function plotPoints () {
       const usine = L.icon({
-        iconUrl:'https://cdn.pixabay.com/photo/2013/07/12/14/09/industry-147863_1280.png',
+        iconUrl:'https://cdn.pixabay.com/photo/2013/07/13/11/46/panel-158630_1280.png',
+        iconSize:[32,32],
+        iconAnchor:[16,32],
+        popupAnchor:[0,-32]
+      });
+       const client = L.icon({
+        iconUrl:'https://cdn.pixabay.com/photo/2023/03/06/09/11/house-7833067_1280.png',
         iconSize:[32,32],
         iconAnchor:[16,32],
         popupAnchor:[0,-32]
@@ -164,7 +170,7 @@
           var distance = pointA.distanceTo(pointB)/1000;
           datas += `<p>${prod[0]} : ${distance.toFixed(2)} km</p>`
         }
-      var pointConso = L.marker(coords).addTo(map);
+      var pointConso = L.marker(coords, {icon:client}).addTo(map);
       pointConso.bindPopup(datas);
     }
     }
