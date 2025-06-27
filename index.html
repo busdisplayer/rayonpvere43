@@ -179,9 +179,10 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
             for (const conso of chaufferies) {
         console.log(conso);
         const coords = conso[1].split(',').map(s => parseFloat(s.trim()));
-              const adresse = await getAdress(coords);
+        const adresse = await getAdress(coords);
         let datas = "";
-              datas += `<h1>${conso[0]}</h1>` 
+              datas += `<h1>${conso[0]}</h1>`;
+              datas += `<i>${adresse}</i>`;
         for (const prod of plateformes) {
           var pointA = L.latLng(coords);
           var pointB = L.latLng(prod[1].split(',').map(s => parseFloat(s.trim())));
