@@ -205,7 +205,7 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
               console.log(currentone);
               console.log(total);
               console.log(currentone/total);
-              status.textContent = `Chargement (${(currentone/total).toFixed(2)}%) → ${adresse}`;
+              status.textContent = `Chargement (${((currentone/total)*100).toFixed(2)}%) → ${conso[0]}`;
         let datas = "";
               datas += `<h3>${conso[0]}</h3>`;
               datas += `<i>${adresse}</i>`;
