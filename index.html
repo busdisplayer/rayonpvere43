@@ -170,7 +170,7 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
         console.log(prod);
       const coords = prod[1].split(',').map(s => parseFloat(s.trim()));
       const adresse = await getAdress(coords);
-        status.textContent = `Chargement → ${adresse}`;
+        status.textContent = `Chargement → ${conso[0]}`;
       var pointProd = L.marker(coords, {
         icon:usine
       }).addTo(map);
