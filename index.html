@@ -232,7 +232,8 @@ cercleData.forEach(obj => {
   const obj = cercleData.find(c => c.nom === selectedNom);
   if (!obj) return;
 
-  const step = 0.001; // ~100m
+  // const step = 0.001; // ~100m
+      const step = (document.getElementById("stepSelect").value)*(0.001/100);
   let [lat, lng] = obj.currentLatLng;
 
   // Déplacement
