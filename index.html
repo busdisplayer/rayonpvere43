@@ -247,7 +247,7 @@ cercleData.forEach(obj => {
   if (!obj) return;
 
   // const step = 0.001; // ~100m
-      const step = parse(document.getElementById("stepSelect").value)*(0.001/100);
+      const step = parseInt(document.getElementById("stepSelect").value)*(0.001/100);
       console.log(step);
   let [lat, lng] = obj.currentLatLng;
 
