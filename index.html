@@ -262,7 +262,12 @@ async function getAdress(coords) {
   console.log(result);
   const toreturn = result.display_name.split(',');
   console.log(toreturn);
-  const keep = `${toreturn[0]}, ${toreturn[1]} (${toreturn[7].trim()}), ${toreturn[3]}`;
+  let keep;
+  if(toreturn.length == 8) {
+  keep = `${toreturn[0]}, ${toreturn[1]} (${toreturn[7].trim()}), ${toreturn[4]}`;
+  } else {
+  keep = `${toreturn[0]}, ${toreturn[1]} (${toreturn[5].trim()}), ${toreturn[2]}`;  
+  }
   console.log(keep);
   return keep;
 }
