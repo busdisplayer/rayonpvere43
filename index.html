@@ -258,6 +258,11 @@ async function getAdress(coords) {
   });
   const result = await response.json();
   console.log(result);
+  const toreturn = result.display_name.split(',');
+  console.log(toreturn);
+  const keep = `${toreturn[0]}, ${toreturn[1]} (${toreturn[6]}), ${toreturn[3]}`;
+  console.log(keep);
+  return keep;
 }
 
   </script>
