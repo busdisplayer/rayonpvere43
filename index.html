@@ -60,6 +60,7 @@
      <option value="10000" name="10km">10km</option>
   </select>
     <i>Distances approximatives</i>
+   <p id="status"></p> 
 
   <div style="display: grid; grid-template-columns: 40px 40px 40px; grid-template-rows: 40px 40px 40px; gap: 5px;">
     <div></div>
@@ -78,7 +79,9 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     // Initialisation de la carte
+    const status = document.getElementById("status");
     console.log("Démarrage du logiciel...");
+    status.textContent = "Chargement en cours...";
   
     const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' });
 const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: '© Esri' });
@@ -166,6 +169,7 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
         console.log(prod);
       const coords = prod[1].split(',').map(s => parseFloat(s.trim()));
       const adresse = await getAdress(coords);
+        status.textContent = `Chargement → ${adresse}`;
       var pointProd = L.marker(coords, {
         icon:usine
       }).addTo(map);
@@ -195,6 +199,7 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
         console.log(conso);
         const coords = conso[1].split(',').map(s => parseFloat(s.trim()));
         const adresse = await getAdress(coords);
+              status.textContent = `Chargement → ${adresse}`;
         let datas = "";
               datas += `<h3>${conso[0]}</h3>`;
               datas += `<i>${adresse}</i>`;
@@ -214,6 +219,8 @@ cercleData.forEach(obj => {
   opt.textContent = obj.nom;
   cercleSelect.appendChild(opt);
 });
+      status.textContent = `Terminé !`;
+      status.style.display = "none";
     }
     mainThread();
     let lastClickedPoint = null;
