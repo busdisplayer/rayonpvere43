@@ -195,13 +195,16 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
           currentLatLng:coords
         });
     }
-              let total = chaufferies.length;
+              let total = chaufferies.length + plateformes.length;
               let currentone;
             for (const conso of chaufferies) {
               currentone += 1;
         console.log(conso);
         const coords = conso[1].split(',').map(s => parseFloat(s.trim()));
         const adresse = await getAdress(coords);
+              console.log(currentone);
+              console.log(total);
+              console.log(currentone/total);
               status.textContent = `Chargement (${(currentone/total).toFixed(2)}%) → ${adresse}`;
         let datas = "";
               datas += `<h3>${conso[0]}</h3>`;
