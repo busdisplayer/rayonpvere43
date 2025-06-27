@@ -151,10 +151,11 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
       for (const prod of plateformes) {
         console.log(prod);
       const coords = prod[1].split(',').map(s => parseFloat(s.trim()));
+      const adresse = await getAdress(coords);
       var pointProd = L.marker(coords, {
         icon:usine
       }).addTo(map);
-      pointProd.bindPopup(`<h1>${prod[0]}</h1>`);
+      pointProd.bindPopup(`<h1>${prod[0]}</h1><i>${adresse}</i>`);
       var cercleA = L.circle(coords, {
       color:'green',
       fillColor:'green',
