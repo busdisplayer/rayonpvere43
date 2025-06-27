@@ -267,7 +267,7 @@ async function getAdress(coords) {
   const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || null;
   const ville = address.city || address.town || address.village || address.hamlet || null;
   const code_postal = address.postcode || null;
-  const departement = address.state || address.county || null;
+  const departement = address.county || address.state || null;
   const keep = `${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
   console.log(keep);
   return keep;
