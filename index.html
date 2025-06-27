@@ -175,13 +175,13 @@ const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/servi
       fillColor:'green',
       fillOpacity:0.2,
       radius:5000
-    }).addTo(map);
+    }).addTo(map).bindPopup("Rayon : 5km");
       var cercleB = L.circle(coords, {
       color:'blue',
       fillColor:'blue',
       fillOpacity:0.2,
       radius:10000
-    }).addTo(map);
+    }).addTo(map).bindPopup("Rayon : 10km");
         cercleData.push({
           nom: prod[0],
           centre:coords,
